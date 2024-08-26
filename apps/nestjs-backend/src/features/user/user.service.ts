@@ -324,4 +324,31 @@ export class UserService {
       data: { lastSignTime: new Date().toISOString() },
     });
   }
+
+  async createSystemUser({
+    id = generateUserId(),
+    email,
+    name,
+    avatar,
+  }: {
+    id?: string;
+    email: string;
+    name: string;
+    avatar?: string;
+  }) {
+    return this.prismaService.$tx(async () => {
+      if (!avatar) {
+        avatar = await this.generateDefaultAvatar(id);
+      }
+      return this.prismaService.txClient().user.create({
+        data: {
+          id,
+          email,
+          name,
+          avatar,
+          isSystem: true,
+        },
+      });
+    });
+  }
 }
