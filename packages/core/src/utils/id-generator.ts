@@ -37,6 +37,8 @@ export enum IdPrefix {
   Plugin = 'plg',
   PluginInstall = 'pli',
   PluginUser = 'plu',
+
+  Dashboard = 'dsh',
 }
 
 const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -155,4 +157,8 @@ export function generatePluginInstallId() {
 
 export function generatePluginUserId() {
   return IdPrefix.PluginUser + getRandomString(16);
+}
+
+export function generateDashboardId() {
+  return IdPrefix.Dashboard + getRandomString(12);
 }
